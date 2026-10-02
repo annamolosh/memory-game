@@ -1,0 +1,76 @@
+body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #E69B6B;
+}
+
+
+/* HEADINGS */
+
+.heading-1 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.heading-2 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+
+/* BODY */
+
+.body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.body-medium {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+
+/* COUNTERS */
+
+.counter-label {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.counter-value {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+/* 20 / 700 → название игры
+18 / 600 → крупный заголовок
+14 / 500 → кнопки
+14 / 400 → обычный текст
+12 / 400 → подпись счётчика
+16 / 600 → значение счётчика */
