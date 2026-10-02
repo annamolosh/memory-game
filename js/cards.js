@@ -9,12 +9,17 @@ const cards = [
     'Sloth.svg'
 ]
 
-const cardPairs = [...cards, ...cards]
+function shuffle(array) {
+    return array.sort(()=> Math.random() - 0.5)
+}
+
+const cardPairs = shuffle([...cards, ...cards])
 
 const gameBoard = document.querySelector('.game-board');
 
 let firstCard = null;
 let secondCard = null;
+let lockBoard = false;
 
 function createCard(cardImage) {
 
@@ -44,13 +49,52 @@ function createCard(cardImage) {
     card.append(cardInner);
 
     card.addEventListener('click', () => {
-    card.classList.add('flipped');
 
-    if (firstCard === null) {
-        firstCard = card;
-    } else if (secondCard === null) {
-        secondCard = card;
-    }
+        if (lockBoard) {
+            return
+        }
+
+        if (card.classList.contains('matched')) {
+            return
+        }
+
+        if (card === firstCard || card === secondCard) {
+            return
+        }
+
+        card.classList.add('flipped');
+        
+        if (firstCard === null) {
+            firstCard = card;
+        } else if (secondCard === null) {
+            secondCard = card;
+            const firstImage = firstCard.querySelector('img').src;
+            const secondImage = secondCard.querySelector('img').src;
+            console.log(firstImage);
+            console.log(secondImage);
+            
+            if (firstImage === secondImage) {
+                console.log('Match!');
+
+                firstCard.classList.add('matched');
+                secondCard.classList.add('matched');
+
+                firstCard = null;
+                secondCard = null;
+            } else {
+                console.log('Not a match!');
+                lockBoard = true;
+
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+
+                    firstCard = null;
+                    secondCard = null;
+                    lockBoard = false;
+                }, 1000);
+            }
+        }
     })
 
     gameBoard.append(card);
