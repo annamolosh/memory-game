@@ -63,8 +63,35 @@ const pairsValue = document.createElement('span');
 pairsValue.classList.add('game-stat-value', 'counter-value');
 pairsValue.textContent = '0 / 8';
 
-
 const main = document.createElement('main')
+
+const modal = document.createElement('div');
+modal.classList.add('modal');
+
+const modalContent = document.createElement('div');
+modalContent.classList.add('modal-content');
+
+modal.append(modalContent);
+globalDiv.append(modal);
+
+const modalIcon = document.createElement('img');
+modalIcon.classList.add('modal-icon');
+modalIcon.src = './assets/icons/Trophy.svg';
+modalIcon.alt = 'Trophy';
+
+const modalTitle = document.createElement('h2');
+modalTitle.classList.add('heading-2');
+modalTitle.textContent = 'You win!';
+
+const modalMoves = document.createElement('p');
+modalMoves.classList.add('body');
+
+const closeButton = document.createElement('button');
+closeButton.classList.add('modal-close', 'btn-primary', 'body-medium');
+closeButton.textContent = 'Close';
+closeButton.addEventListener('click', closeModal);
+
+modalContent.append(modalIcon, modalTitle, modalMoves, closeButton);
 
 const gameBoard = document.createElement('div');
 gameBoard.classList.add('game-board')
@@ -78,7 +105,6 @@ container.append(btnsMain);
 title.append(titleLink);
 container.append(title);
 
-gameStatics.append()
 container.append(gameStatics);
 
 movesInfo.append(movesTitle, movesValue);
@@ -117,6 +143,7 @@ let secondCard = null;
 let lockBoard = false;
 let moves = 0;
 let pairsFound = 0;
+// let winMessage = null;
 
 function createCard(cardImage) {
 
@@ -189,6 +216,8 @@ function createCard(cardImage) {
                 pairsFound++;
                 pairsValue.textContent = `${pairsFound} / 8` ;
 
+                checkWin();
+
                 firstCard = null;
                 secondCard = null;
             } else {
@@ -221,6 +250,11 @@ function resetGame() {
     firstCard = null
     secondCard = null
     lockBoard = false
+
+    // if (winMessage) {
+    //     winMessage.remove ()
+    //     winMessage = null
+    // }
 }
 
 function startGame() {
@@ -230,6 +264,50 @@ function startGame() {
         createCard(cardImage);
     })
 }
+
+// function checkWin() {
+
+//     console.log('checkWin:', pairsFound);
+
+//     if (pairsFound === 8) {
+//         console.log('YOU WIN');
+//         const winMessage = document.createElement('div');
+//         winMessage.textContent = 'You win!';
+//         globalDiv.append(winMessage);
+//     } 
+// }
+
+// function checkWin() {
+//     if (pairsFound === 8) {
+//         winMessage = document.createElement('div');
+//         winMessage.classList.add('win-message');
+//         winMessage.textContent = 'You win!';
+
+//         globalDiv.append(winMessage);
+//     }
+// }
+
+function checkWin() {
+    if (pairsFound === 8) {
+        modalMoves.textContent = `Moves: ${moves}`;
+        openModal();
+    }
+    
+}
+
+function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+}
+
+openModal();
+
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
 
 startGame();
 
