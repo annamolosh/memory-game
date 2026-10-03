@@ -1,0 +1,39 @@
+@media (max-width: 480px) {
+    .game-stat {
+        min-width: auto;
+        padding: 6px 10px;
+        gap: 8px;
+    }
+
+    .game-stat img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .game-stat-title {
+        font-size: 11px;
+        line-height: 14px;
+    }
+
+    .game-stat-value {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .game-board {
+        grid-template-columns: repeat(4, 70px);
+        gap: 8px;
+    }
+
+    .card {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card-front img,
+    .card-back img {
+        width: 45px;
+        height: 45px;
+    }
+
+}

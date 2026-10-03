@@ -1,0 +1,35 @@
+@media (max-width: 768px) {
+
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .btns-main {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-primary {
+        margin-right: 0;
+    }
+
+    .game-statics {
+        gap: 12px;
+    }
+
+    .game-statics > .game-stat:first-child {
+        margin-right: 0;
+    }
+
+    .game-board {
+        grid-template-columns: repeat(4, 120px);
+        gap: 12px;
+    }
+
+    .card {
+        width: 120px;
+        height: 120px;
+    }
+
+}
