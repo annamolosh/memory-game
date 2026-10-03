@@ -110,8 +110,6 @@ function shuffle(array) {
     return array.sort(()=> Math.random() - 0.5)
 }
 
-const cardPairs = shuffle([...cards, ...cards])
-
 // const gameBoard = document.querySelector('.game-board');
 
 let firstCard = null;
@@ -212,9 +210,36 @@ function createCard(cardImage) {
     gameBoard.append(card);
 }
 
-cardPairs.forEach(cardImage => {
-    createCard(cardImage);
+function resetGame() {
+    gameBoard.innerHTML = '';
+    moves = 0;
+    pairsFound = 0;
+
+    movesValue.textContent = '0'
+    pairsValue.textContent = '0 / 8'
+
+    firstCard = null
+    secondCard = null
+    lockBoard = false
+}
+
+function startGame() {
+    const cardPairs = shuffle([...cards, ...cards])
+
+    cardPairs.forEach(cardImage => {
+        createCard(cardImage);
+    })
+}
+
+startGame();
+
+newGameButton.addEventListener('click', () => {
+    resetGame();
+    startGame();
 })
+
+
+
 
 
 
