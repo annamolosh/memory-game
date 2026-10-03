@@ -118,6 +118,7 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let moves = 0;
+let pairsFound = 0;
 
 function createCard(cardImage) {
 
@@ -163,13 +164,21 @@ function createCard(cardImage) {
         card.classList.add('flipped');
         
         if (firstCard === null) {
+
             firstCard = card;
+
         } else if (secondCard === null) {
+
             secondCard = card;
             moves++;
+
+            movesValue.textContent = moves;
+
             // console.log(moves);
+
             const firstImage = firstCard.querySelector('img').src;
             const secondImage = secondCard.querySelector('img').src;
+            
             // console.log(firstImage);
             // console.log(secondImage);
             
@@ -178,6 +187,9 @@ function createCard(cardImage) {
 
                 firstCard.classList.add('matched');
                 secondCard.classList.add('matched');
+
+                pairsFound++;
+                pairsValue.textContent = `${pairsFound} / 8` ;
 
                 firstCard = null;
                 secondCard = null;
