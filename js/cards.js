@@ -143,6 +143,7 @@ let secondCard = null;
 let lockBoard = false;
 let moves = 0;
 let pairsFound = 0;
+let flipTimeout = null;
 // let winMessage = null;
 
 function createCard(cardImage) {
@@ -221,16 +222,18 @@ function createCard(cardImage) {
                 firstCard = null;
                 secondCard = null;
             } else {
-                console.log('Not a match!');
+                // console.log('Not a match!');
                 lockBoard = true;
 
-                setTimeout(() => {
+                flipTimeout = setTimeout(() => {
                     firstCard.classList.remove('flipped');
                     secondCard.classList.remove('flipped');
 
                     firstCard = null;
                     secondCard = null;
                     lockBoard = false;
+
+                    flipTimeout = null;
                 }, 1000);
             }
         }
@@ -240,21 +243,30 @@ function createCard(cardImage) {
 }
 
 function resetGame() {
-    gameBoard.innerHTML = '';
+    while (gameBoard.firstChild) {
+        gameBoard.firstChild.remove();
+
+    }
+
+    clearTimeout(flipTimeout);
+    flipTimeout = null;
+
     moves = 0;
     pairsFound = 0;
 
-    movesValue.textContent = '0'
-    pairsValue.textContent = '0 / 8'
+    movesValue.textContent = '0';
+    pairsValue.textContent = '0 / 8';
 
-    firstCard = null
-    secondCard = null
-    lockBoard = false
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
 
     // if (winMessage) {
     //     winMessage.remove ()
     //     winMessage = null
     // }
+
+    closeModal();
 }
 
 function startGame() {
@@ -289,26 +301,19 @@ function startGame() {
 
 function checkWin() {
     if (pairsFound === 8) {
-
         saveResult();
-
         showWinModal();
-
     }
 }
 
 function showWinModal() {
 
     while (modalContent.firstChild) {
-
         modalContent.firstChild.remove();
-
     }
 
     modalContent.append(modalIcon, modalTitle, modalMoves, closeButton);
-
     modalMoves.textContent = `Moves: ${moves}`;
-
     openModal();
 
 }
@@ -326,29 +331,22 @@ function closeModal() {
 
 function showLeaderboardModal() {
     while (modalContent.firstChild) {
-
         modalContent.firstChild.remove();
 
     }
 
     const modalTitle = document.createElement('h2');
-
     modalTitle.classList.add('heading-2');
-
     modalTitle.textContent = 'Leaderboard';
 
     const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
-
     results.sort((a, b) => a.moves - b.moves);
 
     if (results.length === 0) {
 
         const noResults = document.createElement('p');
-
         noResults.classList.add('body');
-
         noResults.textContent = 'No results';
-
         modalContent.append(modalTitle, noResults);
 
     } else {
@@ -356,11 +354,8 @@ function showLeaderboardModal() {
         results.slice(0, 10).forEach((result, index) => {
 
             const resultItem = document.createElement('p');
-
             resultItem.classList.add('body');
-
             resultItem.textContent = `${index + 1}. Moves: ${result.moves}`;
-
             modalContent.append(resultItem);
 
         });
@@ -368,13 +363,9 @@ function showLeaderboardModal() {
     }
 
     const closeButton = document.createElement('button');
-
     closeButton.classList.add('modal-close', 'btn-primary', 'body-medium');
-
     closeButton.textContent = 'Close';
-
     closeButton.addEventListener('click', closeModal);
-
     modalContent.append(closeButton);
 
     openModal();
@@ -386,14 +377,12 @@ function saveResult() {
     // results.push({moves: moves})
     // localStorage.setItem('memoryResults', JSON.stringify(results))
 
-     const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
+    const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
 
     const isDuplicate = results.some(result => result.moves === moves);
 
     if (!isDuplicate) {
-
         results.push({ moves: moves });
-
     }
 
     localStorage.setItem('memoryResults', JSON.stringify(results));
