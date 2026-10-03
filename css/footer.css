@@ -1,0 +1,17 @@
+.footer-menu{
+  height: 64px;
+  padding: 0;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.size-icon{
+  height: 64px;
+  width: auto;
+  display: block;
+}

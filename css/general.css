@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+body {
+    /* width: 100vw; */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    background-color: white;
+    color: #E69B6B;
+    transition: background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.global-div {
+    width: 100%;
+    max-width: 1140px;
+    padding: 0 24px;
+    /* position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 1140px; 
+    width: 100%;
+    box-sizing: border-box; */
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header {
+    padding: 24px 0;
+}
+
+a {
+  text-decoration: none;
+  all: unset;
+  cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
