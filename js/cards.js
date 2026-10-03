@@ -289,10 +289,28 @@ function startGame() {
 
 function checkWin() {
     if (pairsFound === 8) {
-        modalMoves.textContent = `Moves: ${moves}`;
-        openModal();
+
+        saveResult();
+
+        showWinModal();
+
     }
-    
+}
+
+function showWinModal() {
+
+    while (modalContent.firstChild) {
+
+        modalContent.firstChild.remove();
+
+    }
+
+    modalContent.append(modalIcon, modalTitle, modalMoves, closeButton);
+
+    modalMoves.textContent = `Moves: ${moves}`;
+
+    openModal();
+
 }
 
 function openModal() {
@@ -301,13 +319,87 @@ function openModal() {
 
 }
 
-openModal();
-
 function closeModal() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
+function showLeaderboardModal() {
+    while (modalContent.firstChild) {
+
+        modalContent.firstChild.remove();
+
+    }
+
+    const modalTitle = document.createElement('h2');
+
+    modalTitle.classList.add('heading-2');
+
+    modalTitle.textContent = 'Leaderboard';
+
+    const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
+
+    results.sort((a, b) => a.moves - b.moves);
+
+    if (results.length === 0) {
+
+        const noResults = document.createElement('p');
+
+        noResults.classList.add('body');
+
+        noResults.textContent = 'No results';
+
+        modalContent.append(modalTitle, noResults);
+
+    } else {
+
+        results.slice(0, 10).forEach((result, index) => {
+
+            const resultItem = document.createElement('p');
+
+            resultItem.classList.add('body');
+
+            resultItem.textContent = `${index + 1}. Moves: ${result.moves}`;
+
+            modalContent.append(resultItem);
+
+        });
+
+    }
+
+    const closeButton = document.createElement('button');
+
+    closeButton.classList.add('modal-close', 'btn-primary', 'body-medium');
+
+    closeButton.textContent = 'Close';
+
+    closeButton.addEventListener('click', closeModal);
+
+    modalContent.append(closeButton);
+
+    openModal();
+
+}
+
+function saveResult() {
+    // const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
+    // results.push({moves: moves})
+    // localStorage.setItem('memoryResults', JSON.stringify(results))
+
+     const results = JSON.parse(localStorage.getItem('memoryResults')) || [];
+
+    const isDuplicate = results.some(result => result.moves === moves);
+
+    if (!isDuplicate) {
+
+        results.push({ moves: moves });
+
+    }
+
+    localStorage.setItem('memoryResults', JSON.stringify(results));
+}
+
+leaderboardButton.addEventListener('click', showLeaderboardModal);
 
 startGame();
 
@@ -315,6 +407,7 @@ newGameButton.addEventListener('click', () => {
     resetGame();
     startGame();
 })
+
 
 
 

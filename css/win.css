@@ -46,6 +46,10 @@
 
 }
 
+.modal-content > h2{
+    margin-bottom: 24px;
+}
+
 .modal-icon {
     width: 64px;
     height: 64px;
